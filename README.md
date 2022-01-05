@@ -5,9 +5,12 @@ This aims to improve the usability of the hierarchy window.
 
 ## Installation
 - OpenUPM
-	- `openupm add com.nomnom.hierarchy-window-extensions`
+    - `openupm add com.nomnom.hierarchy-window-extensions`
 - Package Manager
-	- Add through git url `https://github.com/nomnomab/Hierarchy-Window-Extensions.git`
+    - Add through git url `https://github.com/nomnomab/Hierarchy-Window-Extensions.git`
+
+### Package Settings
+- Parts of this package can be enabled/disabled via the preferences menu, located in `Edit/Preferences/Hierarchy Window Extensions`
 
 ## Current Enhancements
 #### Custom Lines
@@ -23,6 +26,3 @@ This aims to improve the usability of the hierarchy window.
 #### Multi-Object Prefab Creation
 ![Multi prefab creation](./Assets~/multi_prefab.gif)
 - Select multiple scene objects, right-click, and select `Prefab/Multi-Prefab` to select a folder for the prefabs to be placed into
-
-### Package Settings
-- Parts of this package can be enabled/disabled via the preferences menu, located in `Edit/Preferences/Hierarchy Window Extensions`
