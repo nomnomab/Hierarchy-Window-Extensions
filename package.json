@@ -1,0 +1,26 @@
+{
+  "name": "com.nomnom.hierarchy-window-extensions",
+  "version": "1.0.0",
+  "displayName": "Hierarchy Window Extensions",
+  "description": "This aims to improve the usability of the hierarchy window.",
+  "unity": "2020.3",
+  "unityRelease": "20f1",
+  "licensesUrl": "https://choosealicense.com/licenses/mit/",
+  "dependencies": {
+    "com.nomnom.easier-custom-preferences": "1.0.1"
+  },
+  "devDependencies": {},
+  "samples": [],
+  "keywords": [
+    "nomnom",
+    "hierarchy",
+    "window",
+    "tool"
+  ],
+  "author": {
+    "name": "Andrew Burke",
+    "email": "",
+    "url": ""
+  },
+  "type": "library"
+}

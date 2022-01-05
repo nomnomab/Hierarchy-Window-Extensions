@@ -1,0 +1,18 @@
+{
+    "name": "com.nomnom.hierarchy-window-extensions.Editor",
+    "rootNamespace": "Nomnom.HierarchyWindowExtensions",
+    "references": [
+        "GUID:9e5533f8f4d89994299cb043c1bbf8fc"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
