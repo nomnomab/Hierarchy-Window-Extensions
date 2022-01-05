@@ -54,6 +54,10 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 				return;
 			}
 
+			if (item == null) {
+				return;
+			}
+
 			item.icon = (Texture2D)texture;
 		}
 	}

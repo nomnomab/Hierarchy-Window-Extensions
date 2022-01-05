@@ -1,6 +1,7 @@
 ﻿#if NOM_HIERARCHY_PREFAB
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,50 +12,50 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 
 		[MenuItem("GameObject/Prefab/Multi-Prefab", false, 0)]
 		private static void MakePrefab() {
-			try {
-				if (_objects == null) {
-					_objects = new List<GameObject>(Selection.gameObjects);
+			if (_objects == null) {
+				_objects = new List<GameObject>();
 
-					string directory = EditorUtility.OpenFolderPanel("Open Folder", "Assets/", string.Empty);
-					string assetsPath = Application.dataPath;
+				GameObject[] tmpObjects = Selection.gameObjects;
 
-					if (assetsPath.Length > directory.Length || string.IsNullOrEmpty(directory)) {
-						Debug.LogError("You selected an invalid folder");
-					} else {
-						_directory = directory;
-					}
+				string directory = EditorUtility.OpenFolderPanel("Open Folder", "Assets/", string.Empty);
+				string assetsPath = Application.dataPath;
 
-					// only use objects without parent selectors
-					for (int i = 0; i < _objects.Count; i++) {
-						GameObject gameObject = _objects[i];
-						Transform currentTransform = gameObject.transform;
+				if (assetsPath.Length > directory.Length || string.IsNullOrEmpty(directory)) {
+					Debug.LogError("You selected an invalid folder");
+				} else {
+					_directory = directory;
+				}
 
-						for (int j = 0; j < _objects.Count; j++) {
-							GameObject checkObj = _objects[j];
+				// only use objects without parent selectors
+				for (int i = 0; i < tmpObjects.Length; i++) {
+					GameObject gameObject = tmpObjects[i];
+					Transform currentTransform = gameObject.transform;
+					bool isValid = true;
 
-							if (checkObj.transform.parent == currentTransform) {
-								// nuke this object
-								_objects.RemoveAt(j);
-								break;
-							}
+					Transform parent = currentTransform.parent;
+					while (parent) {
+						if (tmpObjects.Contains(parent.gameObject)) {
+							isValid = false;
 						}
+
+						parent = parent.parent;
 					}
-				}
 
-				GameObject obj = _objects[0];
-
-				if (!string.IsNullOrEmpty(_directory)) {
-					PrefabUtility.SaveAsPrefabAssetAndConnect(obj, $"{_directory}/{obj.name}.prefab", InteractionMode.UserAction);
-				}
-
-				_objects.RemoveAt(0);
-
-				if (_objects.Count == 0) {
-					_objects = null;
-					_directory = null;
+					if (isValid) {
+						_objects.Add(gameObject);
+					}
 				}
 			}
-			catch (Exception) {
+
+			GameObject obj = _objects[0];
+
+			if (!string.IsNullOrEmpty(_directory)) {
+				PrefabUtility.SaveAsPrefabAssetAndConnect(obj, $"{_directory}/{obj.name}.prefab", InteractionMode.UserAction);
+			}
+
+			_objects.RemoveAt(0);
+
+			if (_objects.Count == 0) {
 				_objects = null;
 				_directory = null;
 			}
