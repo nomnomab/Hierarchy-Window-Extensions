@@ -2,7 +2,7 @@
     "name": "com.nomnom.hierarchy-window-extensions.Editor",
     "rootNamespace": "Nomnom.HierarchyWindowExtensions",
     "references": [
-        "GUID:9e5533f8f4d89994299cb043c1bbf8fc"
+        "com.nomnom.easier-custom-preferences.Editor"
     ],
     "includePlatforms": [
         "Editor"

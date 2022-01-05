@@ -7,7 +7,7 @@
   "unityRelease": "20f1",
   "licensesUrl": "https://choosealicense.com/licenses/mit/",
   "dependencies": {
-    "com.nomnom.easier-custom-preferences": "1.0.1"
+    "com.nomnom.easier-custom-preferences": "1.1.1"
   },
   "devDependencies": {},
   "samples": [],

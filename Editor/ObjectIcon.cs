@@ -1,5 +1,6 @@
-﻿using UnityEditor;
-using UnityEditor.Callbacks;
+﻿using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 namespace Nomnom.HierarchyWindowExtensions.Editor {
@@ -8,32 +9,52 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 	/// component.
 	/// </summary>
 	internal static class ObjectIcon {
-		private static Material _textureMaterial;
-		private static Color32 _proColor = new Color32(56, 56, 56, 255);
-		private static Color32 _nonProColor = new Color32(201, 201, 201, 255);
-		
-		[DidReloadScripts]
-		private static void ReloadResources() {
-			_textureMaterial = Resources.Load<Material>("Icon_Mat");
+		private static Dictionary<GameObject, Texture> _components;
+
+		[InitializeOnLoadMethod]
+		private static void OnLoad() {
+			_components = new Dictionary<GameObject, Texture>();
+			
+			EditorApplication.hierarchyChanged += OnHierarchyChanged;
+
+			OnHierarchyChanged();
 		}
-		
-		public static void Draw(int instanceId, in Rect rect) {
+
+		private static void OnHierarchyChanged() {
+			_components.Clear();
+			
+			GameObject[] objects = Object.FindObjectsOfType<GameObject>();
+			foreach (GameObject gameObject in objects) {
+				Component[] components = gameObject.GetComponents<Component>();
+				Component toUse = components.Length > 1 ? components[1] : components[0];
+
+				if (toUse is CanvasRenderer && components.Length > 2) {
+					toUse = components[2];
+				}
+				
+				Texture newIcon = EditorGUIUtility.ObjectContent(null, toUse.GetType()).image;
+
+				if (newIcon == null) {
+					// probably script
+					newIcon = EditorGUIUtility.ObjectContent(toUse, toUse.GetType()).image;
+				}
+				
+				_components.Add(gameObject, newIcon);
+			}
+		}
+
+		public static void Draw(TreeViewItem item, Event e, int instanceId, in Rect rect) {
 			Object obj = EditorUtility.InstanceIDToObject(instanceId);
 			if (!(obj is GameObject gameObject)) {
 				return;
 			}
 
 			// get the first component for now
-			Component component = gameObject.GetComponent<Component>();
-			Texture newIcon = EditorGUIUtility.ObjectContent(null, component.GetType()).image;
-			Rect iconRect = rect;
-			iconRect.width = iconRect.height;
+			if (!_components.TryGetValue(gameObject, out Texture texture)) {
+				return;
+			}
 
-			Color color = EditorGUIUtility.isProSkin ? _proColor : _nonProColor;
-			GUI.color = Color.white;
-			GUI.backgroundColor = Color.white;
-			EditorGUI.DrawRect(iconRect, color);
-			EditorGUI.DrawPreviewTexture(iconRect, newIcon, _textureMaterial);
+			item.icon = (Texture2D)texture;
 		}
 	}
 }
