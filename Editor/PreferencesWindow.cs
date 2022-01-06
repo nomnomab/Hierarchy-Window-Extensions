@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Nomnom.HierarchyWindowExtensions.Editor {
-	[PreferencesName("Hierarchy Window Extensions")]
+	[PreferencesName("Hierarchy Window Extensions", "Nomnom")]
 	internal static class PreferencesWindow {
 		private const string DEF_LINES = "NOM_HIERARCHY_LINES";
 		private const string DEF_ICONS = "NOM_HIERARCHY_ICONS";
