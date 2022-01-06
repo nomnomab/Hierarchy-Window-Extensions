@@ -24,9 +24,9 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 		
 		public static Settings OnDeserialize() {
 			return new Settings {
-				UseLines = EditorPrefs.GetBool(KEY_USE_CUSTOM_LINES, false),
-				UseIcons = EditorPrefs.GetBool(KEY_USE_CUSTOM_ICONS, false),
-				UseMultiPrefab = EditorPrefs.GetBool(KEY_USE_CUSTOM_PREFAB, false),
+				UseLines = EditorPrefs.GetBool(KEY_USE_CUSTOM_LINES, true),
+				UseIcons = EditorPrefs.GetBool(KEY_USE_CUSTOM_ICONS, true),
+				UseMultiPrefab = EditorPrefs.GetBool(KEY_USE_CUSTOM_PREFAB, true),
 			};
 		}
 
