@@ -1,0 +1,27 @@
+on: push
+
+name: Create release
+
+jobs:
+  build:
+    name: Create release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.0.6
+      - name: Print version
+        run: echo ${{ steps.extract_version.outputs.version }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: v${{ steps.extract_version.outputs.version }}
+          release_name: v${{ steps.extract_version.outputs.version }}
+          draft: false
+          prerelease: false
