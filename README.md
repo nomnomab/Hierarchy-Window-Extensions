@@ -11,6 +11,7 @@ This aims to improve the usability of the hierarchy window.
 
 ### Package Settings
 - Parts of this package can be enabled/disabled via the preferences menu, located in `Edit/Preferences/Hierarchy Window Extensions`
+- Everything is disabled by default.
 
 ## Current Enhancements
 #### Custom Lines
@@ -26,3 +27,6 @@ This aims to improve the usability of the hierarchy window.
 #### Multi-Object Prefab Creation
 ![Multi prefab creation](./Assets~/multi_prefab.gif)
 - Select multiple scene objects, right-click, and select `Prefab/Multi-Prefab` to select a folder for the prefabs to be placed into
+
+## Additional Information
+- [Trello Board](https://trello.com/b/h7sMCsTR/my-packages)

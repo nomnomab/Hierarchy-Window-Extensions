@@ -24,9 +24,9 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 		
 		public static Settings OnDeserialize() {
 			return new Settings {
-				UseLines = EditorPrefs.GetBool(KEY_USE_CUSTOM_LINES, true),
-				UseIcons = EditorPrefs.GetBool(KEY_USE_CUSTOM_ICONS, true),
-				UseMultiPrefab = EditorPrefs.GetBool(KEY_USE_CUSTOM_PREFAB, true),
+				UseLines = EditorPrefs.GetBool(KEY_USE_CUSTOM_LINES, false),
+				UseIcons = EditorPrefs.GetBool(KEY_USE_CUSTOM_ICONS, false),
+				UseMultiPrefab = EditorPrefs.GetBool(KEY_USE_CUSTOM_PREFAB, false),
 			};
 		}
 
@@ -38,8 +38,11 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 		
 		public static void OnGUI(string searchContext, Settings obj) {
 			EditorGUI.indentLevel++;
+			EditorGUILayout.HelpBox("Shows custom line connectors across scene objects.", MessageType.Info);
 			obj.UseLines = EditorGUILayout.ToggleLeft(_useCustomLinesText, obj.UseLines);
+			EditorGUILayout.HelpBox("Shows icons on scene objects that reflect object state.", MessageType.Info);
 			obj.UseIcons = EditorGUILayout.ToggleLeft(_useCustomIconsText, obj.UseIcons);
+			EditorGUILayout.HelpBox("Shows a context option for creating multiple prefabs from a multi-selection in \"Prefab/Multi-Prefab\".", MessageType.Info);
 			obj.UseMultiPrefab = EditorGUILayout.ToggleLeft(_useMultiPrefabText, obj.UseMultiPrefab);
 			EditorGUI.indentLevel--;
 
