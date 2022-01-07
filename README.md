@@ -11,7 +11,6 @@ This aims to improve the usability of the hierarchy window.
 
 ### Package Settings
 - Parts of this package can be enabled/disabled via the preferences menu, located in `Edit/Preferences/Hierarchy Window Extensions`
-- Everything is disabled by default.
 
 ## Current Enhancements
 #### Custom Lines

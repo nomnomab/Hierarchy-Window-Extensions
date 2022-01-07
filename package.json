@@ -1,6 +1,6 @@
 {
   "name": "com.nomnom.hierarchy-window-extensions",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "displayName": "Hierarchy Window Extensions",
   "description": "This aims to improve the usability of the hierarchy window.",
   "unity": "2020.3",

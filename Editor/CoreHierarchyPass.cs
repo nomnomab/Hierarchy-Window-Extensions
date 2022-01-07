@@ -14,6 +14,7 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 
 		private static object _treeView;
 		private static MethodInfo _findItem;
+		private static MethodInfo _initTree;
 		private static Object _lastSelection;
 
 		[InitializeOnLoadMethod]
@@ -26,16 +27,26 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 				AssignTreeView();
 			}
 
-#if NOM_HIERARCHY_LINES
-			ObjectConnector.Draw(instanceId, rect);
-#endif
-			
-#if NOM_HIERARCHY_ICONS
-			Event e = Event.current;
-			TreeViewItem item = GetItem(instanceId);
+			if (PreferencesWindow.UseCustomLines) {
+				ObjectConnector.Draw(instanceId, rect);
+			}
 
-			ObjectIcon.Draw(item, e, instanceId, rect);
-#endif
+			if (PreferencesWindow.UseCustomIcons) {
+				Event e = Event.current;
+				TreeViewItem item = GetItem(instanceId);
+
+				ObjectIcon.Draw(item, e, instanceId, rect);
+			}
+		}
+
+		public static void ResetTree() {
+			object lastWindow = _lastInteractedHierarchyWindow.GetValue(null);
+			object sceneHierarchy = lastWindow
+				.GetType()
+				.GetField("m_SceneHierarchy", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(lastWindow);
+			_initTree.Invoke(sceneHierarchy, null);
+			
+			EditorApplication.RepaintHierarchyWindow();
 		}
 
 		private static TreeViewItem GetItem(int id) {
@@ -51,6 +62,8 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 				.GetField("m_TreeView", BindingFlags.NonPublic | BindingFlags.Instance)
 				.GetValue(sceneHierarchy);
 			_findItem = _treeView.GetType().GetMethod("FindItem", BindingFlags.Public | BindingFlags.Instance);
+			_initTree = sceneHierarchy.GetType()
+				.GetMethod("Init", BindingFlags.NonPublic | BindingFlags.Instance);
 		}
 	}
 }
