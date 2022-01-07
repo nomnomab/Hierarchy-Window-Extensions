@@ -80,10 +80,20 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 		}
 
 		private static void DrawDashedLine(in Rect rect) {
+			if (!_dashedLineTexture || !_textureMaterial) {
+				ReloadResources();
+				return;
+			}
+			
 			EditorGUI.DrawPreviewTexture(rect, _dashedLineTexture, _textureMaterial);
 		}
 
 		private static void DrawConnectorLine(in Rect rect, bool isEnd) {
+			if (!_connectorLineEndTexture || !_connectorLineTexture || !_textureMaterial) {
+				ReloadResources();
+				return;
+			}
+			
 			EditorGUI.DrawPreviewTexture(rect, isEnd ? _connectorLineEndTexture : _connectorLineTexture, _textureMaterial);
 		}
 
