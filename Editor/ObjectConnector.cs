@@ -33,6 +33,7 @@ namespace Nomnom.HierarchyWindowExtensions.Editor {
 			EditorApplication.hierarchyChanged += OnHierarchyChanged;
 
 			OnHierarchyChanged();
+			ReloadResources();
 		}
 
 		private static void OnHierarchyChanged() {
